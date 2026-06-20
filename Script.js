@@ -6,11 +6,28 @@ function Todo() {
   const list = document.querySelector(".list");     
 
 
+  const tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+  renderTasks();
+  
+  function renderTasks(){
+    let list=document.querySelector(".list");
+
+    tasks.forEach(task => {
+      let li=document.createElement("li");
+      li.textContent=task;
+      list.appendChild(li);
+      
+    });
+  }
+
   function addTask() {
     let store = input.value.trim();
     if (!store) return;
 
-    const li = document.createElement("li");
+   const li = document.createElement("li");
+
+   tasks.push(store);
+   localStorage.setItem("tasks",JSON.stringify(tasks));
 
     const createRemoveBtn = document.createElement("button");
     createRemoveBtn.textContent = "Trash 🗑️";
