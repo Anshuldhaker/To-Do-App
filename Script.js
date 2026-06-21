@@ -1,71 +1,65 @@
-
-
 function Todo() {
   const button = document.getElementById("btn");
   const input = document.querySelector(".text");
-  const list = document.querySelector(".list");     
+  const list = document.querySelector(".list");
 
-
-  const tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   renderTasks();
-  
-  function renderTasks(){
-    let list=document.querySelector(".list");
 
-    tasks.forEach(task => {
-      let li=document.createElement("li");
-      li.textContent=task;
+  function renderTasks() {
+    let list = document.querySelector(".list");
+
+    tasks.forEach((task) => {
+      const li = createElement(task);
       list.appendChild(li);
-      
     });
   }
 
-  function addTask() {
-    let store = input.value.trim();
-    if (!store) return;
+  function createElement(task) {
+    const li = document.createElement("li");
 
-   const li = document.createElement("li");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
 
-   tasks.push(store);
-   localStorage.setItem("tasks",JSON.stringify(tasks));
+    const span = document.createElement("span");
+    span.innerText = task;
+    const label = document.createElement("label");
+    const deleteBtn = document.createElement("Button");
 
-    const createRemoveBtn = document.createElement("button");
-    createRemoveBtn.textContent = "Trash 🗑️";
-    createRemoveBtn.classList.add("delete-btn");
-
-    const createSpan = document.createElement("span");
-    createSpan.innerText = store;
-
-    const createLabel = document.createElement("label");
-
-    const Checkbox = document.createElement("input");
-    Checkbox.type = "checkbox";
-
-    list.appendChild(li);
-    createLabel.appendChild(Checkbox);
-    createLabel.appendChild(createSpan);
-    li.appendChild(createLabel);
-    li.appendChild(createRemoveBtn);
-
-    createLabel.classList.add("label-group");
-
-    createRemoveBtn.addEventListener("click", () => {
+    deleteBtn.textContent = "Trash 🗑️";
+    deleteBtn.classList.add("delete-btn");
+   
+    deleteBtn.addEventListener("click", () => {
       li.remove();
     });
 
-    Checkbox.addEventListener("change", () => {
-      createSpan.classList.toggle("Completed", Checkbox.checked);
+    checkbox.addEventListener("change", () => {
+      span.classList.toggle("Completed", checkbox.checked);
     });
+    
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+
+    return li;
+  }
+ 
+  function addTask() {
+    let store = input.value.trim();
+    if (!store) return;
+  
+    const li = createElement(store);
+    list.appendChild(li);
+     
+    tasks.push(store);
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 
     input.value = "";
     input.focus();
-  }   
+  }
 
-
-    button.addEventListener("click", addTask);
-
-
-  // ✅ only here events
+  button.addEventListener("click", addTask);
 
   input.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
