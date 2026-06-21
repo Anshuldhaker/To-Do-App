@@ -75,11 +75,12 @@
   margin-left: auto;
   cursor: pointer;
 }
-/* .delete-btn:hover{
+
+.delete-btn:hover{
   background-color: rgb(124, 30, 30);
   color: white;
   cursor: pointer;
-} */
+}
 
 .completed {
   text-decoration: line-through;
