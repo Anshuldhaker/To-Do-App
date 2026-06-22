@@ -7,14 +7,14 @@ function Todo() {
   renderTasks();
 
   function renderTasks() {
-    let list = document.querySelector(".list");
-
     tasks.forEach((task) => {
       const li = createElement(task);
       list.appendChild(li);
     });
   }
 
+
+  
   function createElement(task) {
     const li = document.createElement("li");
 
@@ -28,29 +28,36 @@ function Todo() {
 
     deleteBtn.textContent = "Trash 🗑️";
     deleteBtn.classList.add("delete-btn");
-   
-    deleteBtn.addEventListener("click", () => {
-      li.remove();
-    });
 
+    deleteBtn.addEventListener("click", () => {
+      let index=tasks.indexOf(task);
+      if(index!=-1){
+        tasks.splice(index,1);
+        localStorage.setItem("tasks",JSON.stringify(tasks))
+      }
+      li.remove();
+     
+    });
+    
     checkbox.addEventListener("change", () => {
       span.classList.toggle("Completed", checkbox.checked);
     });
-    
+
     li.appendChild(checkbox);
+    li.appendChild(label);
     li.appendChild(span);
     li.appendChild(deleteBtn);
 
     return li;
   }
- 
+
   function addTask() {
     let store = input.value.trim();
     if (!store) return;
-  
+
     const li = createElement(store);
     list.appendChild(li);
-     
+
     tasks.push(store);
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
