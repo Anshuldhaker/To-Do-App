@@ -7,22 +7,24 @@ function Todo() {
   renderTasks();
 
   function renderTasks() {
+    list.innerHTML = "";
     tasks.forEach((task) => {
       const li = createElement(task);
       list.appendChild(li);
     });
   }
 
-
-  
-  function createElement(task) {
+  function createElement(newTask) {
     const li = document.createElement("li");
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-
+    checkbox.checked = newTask.completed;
     const span = document.createElement("span");
-    span.innerText = task;
+    span.innerText = newTask.text;
+    if(newTask.completed){
+      span.classList.add("Completed")
+    }
     const label = document.createElement("label");
     const deleteBtn = document.createElement("Button");
 
@@ -30,17 +32,18 @@ function Todo() {
     deleteBtn.classList.add("delete-btn");
 
     deleteBtn.addEventListener("click", () => {
-      let index=tasks.indexOf(task);
-      if(index!=-1){
-        tasks.splice(index,1);
-        localStorage.setItem("tasks",JSON.stringify(tasks))
+      let index = tasks.indexOf(newTask);
+      if (index != -1) {
+        tasks.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(tasks));
       }
       li.remove();
-     
     });
-    
+
     checkbox.addEventListener("change", () => {
       span.classList.toggle("Completed", checkbox.checked);
+      newTask.completed = checkbox.checked;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
     });
 
     li.appendChild(checkbox);
@@ -55,10 +58,14 @@ function Todo() {
     let store = input.value.trim();
     if (!store) return;
 
-    const li = createElement(store);
+    const newTask = {
+      text: store,
+      completed: false,
+    };
+    const li = createElement(newTask);
     list.appendChild(li);
 
-    tasks.push(store);
+    tasks.push(newTask);
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
