@@ -3,12 +3,13 @@
   margin: 0;
   box-sizing: border-box;
 }
+
 .maincontainer {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #667eea, #764ba2);
+  background: linear-gradient(to right, #404d89, #43275f);
 }
 .container {
   width: 350px;
@@ -16,14 +17,15 @@
   text-align: center;
   border-radius: 12px;
   background-color: #5e4793;
-  border: 2px solid #ccc;
+  border: 2.2px solid #000000;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   /* height: 200px; */
 }
 .inputgroup {
   display: flex;
   margin-top: 19px;
-  gap: 8px;
+  gap: 4px;
+  
 }
 .text {
   flex: 1;
@@ -31,14 +33,21 @@
   border: 1.5px solid black;
   padding: 0 8px;
 }
+h1 {
+  margin-bottom: 11px;
+  font-weight: bolder;
+}
 #btn {
-  height: 30px;
+  height: 29px;
   padding: 0 12px;
   border-radius: 8px;
-  /* border: 1.5px solid black; */
   background-color: #4752a2;
   cursor: pointer;
   color: rgb(255, 255, 255);
+   transition: 0.3s ease-out;
+}
+#btn:hover {
+  background-color: #2d388d;
 }
 .list {
   text-align: left;
@@ -46,7 +55,6 @@
   margin-top: 15px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
 }
 .list li {
   display: flex;
@@ -60,13 +68,14 @@
   font-weight: bolder;
   box-shadow: 0 2px 5px;
   gap: 8px;
+  transition: 0.3s ease-in-out;
 }
 .list li:hover {
-  background-color: #5f626b;
+  background-color: #464850;
+  transform: translateY(-1.8px);
 }
 .delete-btn {
   background-color: #a94444;
-  /* text-align: right; */
   padding: 8px 12px;
   transition: 0.3s ease-in-out;
   border-radius: 10px;
@@ -76,7 +85,7 @@
   cursor: pointer;
 }
 
-.delete-btn:hover{
+.delete-btn:hover {
   background-color: rgb(124, 30, 30);
   color: white;
   cursor: pointer;
@@ -86,20 +95,20 @@
   text-decoration: line-through;
   opacity: 0.6;
 }
-
-.label-group {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .dupli {
   background-color: rgb(237, 89, 89);
   padding: 5px 12px;
   border-radius: 8px;
 }
 
-.Completed {
-  text-decoration: line-through;
-  opacity: 0.6;
+.stats {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(171, 167, 167);
+  font-weight: bolder;
+  padding: 5px;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
 }
