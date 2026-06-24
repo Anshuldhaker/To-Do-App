@@ -2,6 +2,9 @@ function Todo() {
   const button = document.getElementById("btn");
   const input = document.querySelector(".text");
   const list = document.querySelector(".list");
+  const totalEL=document.getElementById("total");
+  const completedEL=document.getElementById("completed");
+  const remainingEL=document.getElementById("remaining");
 
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   renderTasks();
@@ -11,12 +14,24 @@ function Todo() {
     tasks.forEach((task) => {
       const li = createElement(task);
       list.appendChild(li);
+      updateStats();
     });
+  }
+
+
+  function updateStats(){
+    const total=tasks.length;
+    const completed=tasks.filter(task=>task.completed).length
+    const remaining=total-completed;
+
+    totalEL.textContent=total;
+    completedEL.textContent=completed;
+    remainingEL.textContent=remaining;
   }
 
   function createElement(newTask) {
     const li = document.createElement("li");
-
+    
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.checked = newTask.completed;
@@ -25,7 +40,6 @@ function Todo() {
     if(newTask.completed){
       span.classList.add("Completed")
     }
-    const label = document.createElement("label");
     const deleteBtn = document.createElement("Button");
 
     deleteBtn.textContent = "Trash 🗑️";
@@ -38,16 +52,17 @@ function Todo() {
         localStorage.setItem("tasks", JSON.stringify(tasks));
       }
       li.remove();
+      updateStats();
     });
 
     checkbox.addEventListener("change", () => {
       span.classList.toggle("Completed", checkbox.checked);
       newTask.completed = checkbox.checked;
       localStorage.setItem("tasks", JSON.stringify(tasks));
+      updateStats();
     });
 
     li.appendChild(checkbox);
-    li.appendChild(label);
     li.appendChild(span);
     li.appendChild(deleteBtn);
 
@@ -62,11 +77,12 @@ function Todo() {
       text: store,
       completed: false,
     };
+  
     const li = createElement(newTask);
     list.appendChild(li);
 
     tasks.push(newTask);
-
+    updateStats();
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
     input.value = "";
