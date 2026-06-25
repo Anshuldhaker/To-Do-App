@@ -25,6 +25,10 @@
   margin-top: 19px;
   gap: 4px;
 }
+input[type="checkbox"]{
+  transform: scale(1.2);
+  cursor: pointer;
+}
 .text {
   flex: 1;
   border-radius: 8px;
@@ -70,9 +74,10 @@ h1 {
   box-shadow: 0 2px 5px;
   gap: 8px;
   transition: 0.3s ease-in-out;
+  font-size: 25px;
 }
 .list li:hover {
-  background-color: #464850;
+  background-color: #bfc2ce;
   transform: translateY(-1.8px);
 }
 .delete-btn {
