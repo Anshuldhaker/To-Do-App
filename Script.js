@@ -19,16 +19,17 @@ function Todo() {
     tasks.forEach((task) => {
       const li = createElement(task);
       list.appendChild(li);
-      updateStats();
     });
+      updateStats();
   }
 
+  
   function changeTheme(){
     toggleBtn.addEventListener('click',()=>{
       container.classList.toggle("darkTheme");
       mainContainer.classList.toggle("darkTheme");
-        toggleBtn.textContent =
-      container.classList.contains("darkTheme") ? "☀️" : "🌙";
+        const isDark=mainContainer.classList.toggle("darkTheme");
+        toggleBtn.textContent=isDark?"☀️":"🌙";
       }
     )
   }
@@ -48,6 +49,7 @@ function Todo() {
     
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+
     checkbox.checked = newTask.completed;
     const span = document.createElement("span");
     span.innerText = newTask.text;
@@ -84,6 +86,7 @@ function Todo() {
   }
 
   function addTask() {
+
     let store = input.value.trim();
     if (!store) return;
 
@@ -102,7 +105,7 @@ function Todo() {
     input.value = "";
     input.focus();
   }
-
+  
   button.addEventListener("click", addTask);
 
   input.addEventListener("keydown", (event) => {
