@@ -5,9 +5,14 @@ function Todo() {
   const totalEL=document.getElementById("total");
   const completedEL=document.getElementById("completed");
   const remainingEL=document.getElementById("remaining");
+  const toggleBtn=document.getElementById("themeToggle");
+  const container=document.querySelector(".container")
+  const mainContainer=document.querySelector(".maincontainer");
+
 
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
   renderTasks();
+  changeTheme();
 
   function renderTasks() {
     list.innerHTML = "";
@@ -18,6 +23,15 @@ function Todo() {
     });
   }
 
+  function changeTheme(){
+    toggleBtn.addEventListener('click',()=>{
+      container.classList.toggle("darkTheme");
+      mainContainer.classList.toggle("darkTheme");
+        toggleBtn.textContent =
+      container.classList.contains("darkTheme") ? "☀️" : "🌙";
+      }
+    )
+  }
 
   function updateStats(){
     const total=tasks.length;
@@ -56,7 +70,7 @@ function Todo() {
     });
 
     checkbox.addEventListener("change", () => {
-      span.classList.toggle("Completed", checkbox.checked);
+      span.classList.toggle("completed", checkbox.checked);
       newTask.completed = checkbox.checked;
       localStorage.setItem("tasks", JSON.stringify(tasks));
       updateStats();
