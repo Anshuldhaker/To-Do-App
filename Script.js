@@ -10,8 +10,7 @@ function Todo() {
   const mainContainer = document.querySelector(".maincontainer");
 
   const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-  renderTasks();
-
+  
   function renderTasks() {
     list.innerHTML = "";
     tasks.forEach((task) => {
@@ -19,8 +18,9 @@ function Todo() {
       list.appendChild(li);
     });
     updateStats();
-    changeTheme();
   }
+  renderTasks();
+  changeTheme();
 
   function changeTheme() {
     toggleBtn.addEventListener("click", () => {
@@ -29,7 +29,7 @@ function Todo() {
       toggleBtn.textContent = isDark ? "☀️" : "🌙";
     });
   }
-
+  
   function updateStats() {
     const total = tasks.length;
     const completed = tasks.filter((task) => task.completed).length;
@@ -50,7 +50,7 @@ function Todo() {
     const span = document.createElement("span");
     span.innerText = newTask.text;
     if (newTask.completed) {
-      span.classList.add("Completed");
+      span.classList.add("completed");
     }
     const deleteBtn = document.createElement("Button");
 
@@ -90,10 +90,10 @@ function Todo() {
       completed: false,
     };
 
+    tasks.push(newTask);
     const li = createElement(newTask);
     list.appendChild(li);
 
-    tasks.push(newTask);
     updateStats();
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
